@@ -1,0 +1,49 @@
+---
+title: "phothi-assignment3"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r}
+c("tidyverse",
+  "ggthemes",
+  "shiny",
+  "flexdashboard",
+  "ggplot2"
+  ) -> package_names  
+for(package_name in package_names) {
+  if(!is.element(package_name, installed.packages()[,1])) {
+     install.packages(package_name,
+                      repos = "http://cran.mtu.edu/")
+  }
+  library(package_name, character.only=TRUE,
+          quietly=TRUE,verbose=FALSE)
+}
+```
+
+
+
+```{r setup, include=FALSE}
+
+read.csv("C:/Users/pavan/Documents/GDAT/o-ring-erosion-or-blowby.csv") -> o.ring
+
+str(o.ring)
+
+```
+
+
+
+```{r}
+
+ggplot(data = o.ring, mapping = aes(x = launch_temp, y = o_rings_distress, color = flight_number)) + 
+  geom_point() + 
+  xlab("Launch Temp") + 
+  ylab("O-rings in Distress") + 
+  ggtitle("Challenger Launch")
+
+
+```
+
+As launch temperature decreases, the number of o-rings in distress increases. 
